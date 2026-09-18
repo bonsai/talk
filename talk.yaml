@@ -1,0 +1,95 @@
+version: "0.1"
+
+talk:
+  definition: "発話そのものではなく、関心と状態を動かすプロセス"
+
+  principles:
+    - "Talk is not speech itself"
+    - "conversation may continue when interest is maintained"
+    - "conversation may end when interest is lost"
+    - "Decision is an internal process, not a Talk action"
+
+  types:
+    - id: know
+      name: Know
+      purpose: "知る"
+    - id: connect
+      name: Connect
+      purpose: "つながる"
+    - id: enjoy
+      name: Enjoy
+      purpose: "楽しむ"
+    - id: explore
+      name: Explore
+      purpose: "広げる"
+    - id: understand
+      name: Understand
+      purpose: "腑に落ちる"
+    - id: feel
+      name: Feel
+      purpose: "感じる"
+    - id: continue
+      name: Continue
+      purpose: "続ける"
+
+  outcomes:
+    - interest_increase
+    - interest_maintained
+    - interest_decrease
+    - conversation_end
+    - refusal
+
+  model:
+    actor: Agent
+    partner: Agent
+    domain: Domain
+    context: Context
+    purpose: Purpose
+    type: TalkType
+    topic: Topic
+    action: TalkAction
+    ask: Ask
+    reaction: Reaction
+    interest: Interest
+    state: State
+    outcome: Outcome
+
+  ask:
+    definition: "次のTalkを選ぶための選択"
+    inputs:
+      - current_state
+      - current_interest
+      - domain_knowledge
+      - conversation_memory
+    output: next_talk
+
+  loop:
+    - current_state
+    - current_interest
+    - ask
+    - talk
+    - reaction
+    - interest_state_update
+    - continue_or_end
+
+  domain_independence:
+    description: "Talkのモデルはドメイン非依存"
+    examples:
+      - idol
+      - cabaret
+      - host
+      - fashion-sales
+      - insurance-sales
+      - uber-driver-recruitment
+      - pickup
+      - judge
+
+  aw:
+    definition: "DomainごとのTalk事例を収集し、知識へ育てる"
+    case:
+      before: Before
+      talk: Talk
+      reaction: Reaction
+      after: After
+    retrieval: RAG
+    knowledge_update: true
